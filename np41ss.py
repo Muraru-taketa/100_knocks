@@ -43,7 +43,7 @@ def append_sentence(chunks, sentences):
     for i, chunk in enumerate(chunks):
         if chunk.dst != -1:
             chunks[chunk.dst].srcs.append(i)
-    sentences.append(sentences(chunks))
+    sentences.append(chunks)
     return sentences
 
 def Ai_morphs():
@@ -60,12 +60,12 @@ def Ai_morphs():
 
             # もしEOSまたは係り受け解析結果ではないとき
             if not (line == 'EOS\n' or bun):
-                morphs.append(Morph(line))
+                morphs.append(Morph(line))#モルフの要素を入れる
 
             # 反対にEOSまたは係り受け解析結果で、形態素解析結果があるとき
             elif len(morphs) > 0:
                 chunks.append(Chunk(morphs, dst))
-                morphs = []
+                morphs = []#モルフのリストにchunkを入れる
 
             # もし係り受け結果のとき
             if bun:
@@ -74,6 +74,7 @@ def Ai_morphs():
             # もしEOSで係り受け結果があるとき
             if line == 'EOS\n' and len(chunks) > 0:
                 sentences = append_sentence(chunks, sentences)
+                #chunksの中にchunksとsentencesを入れる
                 #空のリストを用意
                 chunks = []
 
