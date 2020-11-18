@@ -21,7 +21,7 @@ kakari =  re.compile(r'''(?:\*\s\d+\s) # キャプチャ対象外
                             (-?\d+)       # 数字(係り先)
                         ''', re.VERBOSE)
 
-
+"""
 class Morph:
     def __init__(self, morph):
 
@@ -29,7 +29,7 @@ class Morph:
         tab = separator.split(morph)
 
         self.surface = tab[0] # 表層形(surface)
-        self.base = tab[6]    # 基本形(base)
+        self.base = tab[7]    # 基本形(base)
         self.pos = tab[1]     # 品詞(pos)
         self.pos1 = tab[2]    # 品詞細分類1(pos1)
 
@@ -46,7 +46,7 @@ class Chunk:
                 self.zyoshi = '' #記号を取り除いた行
             if morph.pos == '句点':
                 self.zyoshi = ''
-
+"""
 # 係り元を代入,Chunkリストを文のリストを追加
 def append_sentence(chunks, sentences):
 
@@ -71,6 +71,14 @@ with open('./ans45.txt', 'w') as f:
             corpass = corpass + [morph.surface for morph in sentence[src].morphs if morph.pos == '助詞']
           if len(corpass) > 0:  # 助詞が見つかった場合はソートして出力
             corpass = sorted(list(set(corpass)))
-            line = '{}\t{}'.format(morph.base, ' '.join(corpass))
+            corpass2 = [morph.surface for morph in chunk.morphs]
+            cop = "".join(corpass2)
+            line = '{}\t{}'.format(cop, ' '.join(corpass))
             print(line, file=f)
+            # surface_list = [morph.surface for morph in chunk.morphs]
+            # surface_str = "".join(surface_list) # 動詞を含む文節の全ての形態素の表層形
+            # line = '{}\t{}'.format(surface_str, ' '.join(corpass))
+            # print(line)
+            # print(morph.surface, ' '.join(corpass), line, file=f)
+            #print(line, file=f)
           break

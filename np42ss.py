@@ -19,7 +19,7 @@ class Morph:
         tab = separator.split(morph)
 
         self.surface = tab[0] # 表層形(surface)
-        self.base = tab[6]    # 基本形(base)
+        self.base = tab[7]    # 基本形(base)
         self.pos = tab[1]     # 品詞(pos)
         self.pos1 = tab[2]    # 品詞細分類1(pos1)
 
@@ -28,7 +28,7 @@ class Chunk:
         self.morphs = morphs
         self.srcs = []   # 係り元文節インデックス番号のリスト
         self.dst = dst  # 係り先文節インデックス番号
-        self.phrase = ''.join([morph.surface for morph in morphs if morph.pos!='記号'])
+        #self.phrase = ''.join([morph.surface for morph in morphs if morph.pos!='記号'])
 
 # 係り元を代入,Chunkリストを文のリストを追加
 def append_sentence(chunks, sentences):
@@ -43,9 +43,11 @@ import np41sss
 
 sentences = np41sss.Ai_morphs()
 
-sentence = sentences[2]
+sentence = sentences[1]
 for chunk in sentence:
     if int(chunk.dst) != -1:
         modifier = ''.join([morph.surface if morph.pos != '記号' else '' for morph in chunk.morphs])
         modifiee = ''.join([morph.surface if morph.pos != '記号' else '' for morph in sentence[int(chunk.dst)].morphs])
-        print(modifier, modifiee, sep='\t')
+        mo = modifier,modifiee
+        #print(' -> '.join(mo))
+        print(modifier, modifiee)

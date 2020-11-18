@@ -20,7 +20,7 @@ class Morph:
         tab = separator.split(morph)
 
         self.surface = tab[0] # 表層形(surface)
-        self.base = tab[6]    # 基本形(base)
+        self.base = tab[7]    # 基本形(base)
         self.pos = tab[1]     # 品詞(pos)
         self.pos1 = tab[2]    # 品詞細分類1(pos1)
 
@@ -44,7 +44,7 @@ import np41sss
 
 sentences = np41sss.Ai_morphs()
 
-sentence = sentences[2]
+sentence = sentences[1]
 for chunk in sentence:
   if int(chunk.dst) != -1:
     modifier = ''.join([morph.surface if morph.pos != '記号' else '' for morph in chunk.morphs])

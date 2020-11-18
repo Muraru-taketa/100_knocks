@@ -26,7 +26,7 @@ class Morph:
         tab = separator.split(morph)
 
         self.surface = tab[0] # 表層形(surface)
-        self.base = tab[6]    # 基本形(base)
+        self.base = tab[7]    # 基本形(base)
         self.pos = tab[1]     # 品詞(pos)
         self.pos1 = tab[2]    # 品詞細分類1(pos1)
 
@@ -92,5 +92,5 @@ if __name__ == "__main__":
     '''
     #-------------------------------------------------------#
     
-    for i, chunk in enumerate(sentences[2]):
+    for i, chunk in enumerate(sentences[1]):
         print([morph.surface for morph in chunk.morphs],i, chunk.srcs, chunk.dst)
