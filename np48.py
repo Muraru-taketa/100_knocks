@@ -31,10 +31,11 @@ import np41sss
 
 sentences = np41sss.Ai_morphs()
 sentence = sentences[1]
-for chunk in sentence:
-  if '名詞' in [morph.pos for morph in chunk.morphs]:  # chunkが名詞を含むか確認
-    path = [''.join(morph.surface for morph in chunk.morphs if morph.pos != '記号')]
-    while chunk.dst != -1:  # 名詞を含むchunkを先頭に、dstを根まで順に辿ってリストに追加
-      path.append(''.join(morph.surface for morph in sentence[chunk.dst].morphs if morph.pos != '記号'))
-      chunk = sentence[chunk.dst]
-    print(' -> '.join(path))
+with open('./ans48.txt', 'w') as f:
+  for chunk in sentence:
+    if '名詞' in [morph.pos for morph in chunk.morphs]:  # chunkが名詞を含むか確認
+      path = [''.join(morph.surface for morph in chunk.morphs if morph.pos != '記号')]
+      while chunk.dst != -1:  # 名詞を含むchunkを先頭に、dstを根まで順に辿ってリストに追加
+        path.append(''.join(morph.surface for morph in sentence[chunk.dst].morphs if morph.pos != '記号'))
+        chunk = sentence[chunk.dst]
+      print(' -> '.join(path), file=f)
