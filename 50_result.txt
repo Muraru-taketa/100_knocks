@@ -1,0 +1,18 @@
+【学習データ】
+b    4502
+e    4223
+t    1219
+m     728
+Name: CATEGORY, dtype: int64
+【検証データ】
+b    562
+e    528
+t    153
+m     91
+Name: CATEGORY, dtype: int64
+【評価データ】
+b    563
+e    528
+t    152
+m     91
+Name: CATEGORY, dtype: int64
