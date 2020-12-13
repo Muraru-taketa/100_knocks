@@ -13,15 +13,19 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 # データの読込
-df = pd.read_csv('./newsC.csv', header=None, sep='\t', names=['ID', 'TITLE', 'URL', 'PUBLISHER', 'CATEGORY', 'STORY', 'HOSTNAME', 'TIMESTAMP'])
+df = pd.read_csv('./NewsAggregatorDataset/newsCorpora.csv', header=None, sep='\t', names=['ID', 'TITLE', 'URL', 'PUBLISHER', 'CATEGORY', 'STORY', 'HOSTNAME', 'TIMESTAMP'])
+df = df.replace('"',  '\'')
 
 # データの抽出
 df = df.loc[df['PUBLISHER'].isin(['Reuters', 'Huffington Post', 'Businessweek', 'Contactmusic.com', 'Daily Mail']), ['TITLE', 'CATEGORY']]
+a_train, a_test = train_test_split(df,test_size=0.2,shuffle=False)
+print(df)
 
 # データの分割　
 train, valid_test = train_test_split(df, test_size=0.2, shuffle=True, random_state=123, stratify=df['CATEGORY'])
 valid, test = train_test_split(valid_test, test_size=0.5, shuffle=True, random_state=123, stratify=valid_test['CATEGORY'])
 #(20%のものから10％づつに分けまする)
+
 # データの保存
 train.to_csv('./train.txt', sep='\t', index=False)
 valid.to_csv('./valid.txt', sep='\t', index=False)
