@@ -13,12 +13,11 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 # データの読込
-df = pd.read_csv('./NewsAggregatorDataset/newsCorpora.csv', header=None, sep='\t', names=['ID', 'TITLE', 'URL', 'PUBLISHER', 'CATEGORY', 'STORY', 'HOSTNAME', 'TIMESTAMP'])
-df = df.replace('"',  '\'')
+df = pd.read_csv('./newsCorpora_rep.csv', header=None, sep='\t', names=['ID', 'TITLE', 'URL', 'PUBLISHER', 'CATEGORY', 'STORY', 'HOSTNAME', 'TIMESTAMP'])
 
 # データの抽出
 df = df.loc[df['PUBLISHER'].isin(['Reuters', 'Huffington Post', 'Businessweek', 'Contactmusic.com', 'Daily Mail']), ['TITLE', 'CATEGORY']]
-a_train, a_test = train_test_split(df,test_size=0.2,shuffle=False)
+t_train, t_test = train_test_split(df,test_size=0.2,shuffle=False)
 print(df)
 
 # データの分割　
